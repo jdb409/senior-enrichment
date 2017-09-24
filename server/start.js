@@ -3,6 +3,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const { resolve } = require('path')
+const path = require('path');
 
 const app = express()
 
@@ -16,6 +17,7 @@ module.exports = app
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
   .use(express.static(resolve(__dirname, '..', 'public'))) // Serve static files from ../public
+  .use('/vendor', express.static(path.join(__dirname,'node_modules')))
   .use('/api', require('./api')) // Serve our api
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html'))) // Send index.html for any other requests.
 
