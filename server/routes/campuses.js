@@ -16,4 +16,30 @@ router.get('/:campusId', (req, res, next) => {
         })
 })
 
+router.post('/', (req, res, next) => {
+    Campus.create(req.body)
+        .then(campus => {
+            res.send(campus);
+        })
+});
+
+router.put('/:campusId', (req, res, next) => {
+    Campus.findById(req.params.campusId)
+    .then(campus => {
+        //update
+        res.sendStatus(campus);
+    })
+})
+
+router.delete('/:campusId', (req, res, next) => {
+    Campus.destroy({
+        where: {
+            id: req.params.studentId
+        }
+    })
+        .then(() => {
+            res.sendStatus(200);
+        })
+})
+
 module.exports = router;

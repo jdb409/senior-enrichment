@@ -5,7 +5,7 @@ const Student = db.define('student', {
     name: {
         type: Sequelize.STRING,
         unique: true,
-        allowNull: false,
+        // allowNull: false,
         validate: {
             notEmpty: true
         }
