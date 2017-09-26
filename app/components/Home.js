@@ -8,8 +8,8 @@ const Home = () => {
         <div>
             <h1 className='container'>Welcome to Interplanetary Academy of Javascript</h1>
             <ul>
-                <li><Link to={`/Students`}>Students</Link></li>
-                <li><Link to={`/Campuses`}>Campuses</Link></li>
+                <li><Link to={`/students`}>Students</Link></li>
+                <li><Link to={`/campuses`}>Campuses</Link></li>
             </ul>
         </div>
     );

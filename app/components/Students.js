@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 const Students = (props) => {
     const { students } = props;
     return (
-        <div className = 'container'>
+        <div className='container'>
             <p><Link to='/'>Home</Link></p>
             <h1>Students</h1>
             <ul>
@@ -13,7 +13,7 @@ const Students = (props) => {
                     students.map(student => {
                         return (
                             <div key={student.id}>
-                                <li>{student.name}</li>
+                                <li><Link to={`/students/${student.id}`} >{student.name}</Link></li>
                             </div>
                         )
                     })

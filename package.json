@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha **/*.test.js *.test.js",
     "webpack": "./node_modules/webpack/bin/webpack.js",
-    "start": "npm run webpack -- -w & nodemon server/start.js"
+    "start": "npm run webpack -- -w & nodemon --ignore public/ --ignore components/ server/start.js"
   },
   "keywords": [
     "react",

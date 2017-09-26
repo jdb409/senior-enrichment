@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
+import store, { fetchStudents, fetchCampuses } from '../store';
 import Home from './Home';
 import Students from './Students';
 import Campuses from './Campuses';
-import store, { fetchStudents, fetchCampuses } from '../store';
+import SingleStudent from './SingleStudent';
+import SingleCampus from './SingleCampus';
+
 
 export default class Root extends Component {
 
@@ -13,15 +16,20 @@ export default class Root extends Component {
   }
 
   render() {
-
+    
     return (
       <Router>
-        <div>
+        <div className='container'>
           <Route exact path='/' component={Home} />
           <Route exact path='/students' component={Students} />
+          <Route path='/students/:studentId' component={SingleStudent} />
           <Route exact path='/campuses' component={Campuses} />
+          <Route path='/campuses/:campusId' component={SingleCampus} />
+
         </div>
       </Router>
     )
   }
 }
+
+// <Route exact path='/campuses/:campusId' component={Campuses} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import CampusForm from './CampusForm';
 
 const Campuses = (props) => {
     const { campuses } = props;
@@ -8,12 +9,13 @@ const Campuses = (props) => {
         <div className='container'>
             <p><Link to='/'>Home</Link></p>
             <h1>Campuses</h1>
+            <CampusForm />
             <ul>
                 {
                     campuses.map(campus => {
                         return (
                             <div key={campus.id}>
-                                <li>{campus.name}</li>
+                                <li><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></li>
                             </div>
                         )
                     })
