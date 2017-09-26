@@ -9,6 +9,7 @@ class SingleCampus extends Component {
         this.state = { studentId: '' };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.deleteStudent = this.deleteStudent.bind(this);
     }
 
     componentDidMount() {
@@ -23,13 +24,19 @@ class SingleCampus extends Component {
 
     handleSubmit(ev) {
         ev.preventDefault();
-        this.props.updateCampus(this.props.campus.id, this.state)
+        this.props.updateCampus(this.props.campus.id, this.state, false)
+    }
+
+    deleteStudent(ev) {
+        ev.preventDefault();
+        console.log('ev', ev.target.value);
+        this.props.updateCampus(this.props.campus.id, { studentId: ev.target.value * 1 }, true)
     }
 
     render() {
         const { campus, students } = this.props;
-        const { handleChange, handleSubmit } = this;
-        
+        const { handleChange, handleSubmit, deleteStudent } = this;
+
         return (
             <div>
                 <p><Link to='/'>Home</Link></p>
@@ -41,7 +48,10 @@ class SingleCampus extends Component {
                             {
                                 campus.students && campus.students.map(student => {
                                     return (
-                                        <li key={student.id}><Link to={`/students/${student.id}`}>{student.name}</Link></li>
+                                        <li key={student.id}><Link to={`/students/${student.id}`}>{student.name}  </Link>
+                                            <button onClick={deleteStudent} value={student.id} className='btn btn-danger btn-xs pull-right'>X</button>
+                                        </li>
+
                                     );
                                 })
                             }
@@ -72,7 +82,6 @@ class SingleCampus extends Component {
 }
 
 const mapStateToProps = ({ campus, students }, ownProps) => {
-    const campusId = ownProps.match.params.campusId * 1;
     return {
         campus: campus,
         students
@@ -81,8 +90,8 @@ const mapStateToProps = ({ campus, students }, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateCampus: (campusId, student) => {
-            dispatch(updateCampus(campusId, student));
+        updateCampus: (campusId, student, del) => {
+            dispatch(updateCampus(campusId, student, del));
         },
         fetchCampus: (campusId) => {
             dispatch(fetchCampus(campusId))

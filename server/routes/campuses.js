@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:campusId', (req, res, next) => {
-    console.log(req.params);
+    
     Campus.findById(req.params.campusId, { include: [{ all: true }] })
         .then(campus => {
             res.send(campus);
@@ -25,21 +25,20 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:campusId', (req, res, next) => {
-    Promise.all([Campus.findById(req.params.campusId * 1, { include: [{ all: true }] }), Student.findById(req.body.studentId * 1)])
-        .then(([campus, student]) => {
-            console.log(campus.students.length);
-            return campus.addStudent(student)
-                .then(campus => {
-                    return Campus.findById(req.params.campusId * 1, { include: [{ all: true }] })
-                        .then(campus => {
-                            console.log(campus.students);
-                            res.send(campus);
-                        })
-                })
-
-
-        }).catch(next)
-})
+    console.log('saefdsdafdsa',req.body);
+    if (!req.body.del) {
+        Campus.addStudent(req.params.campusId * 1, req.body.studentId.studentId * 1)
+            .then(campus => {
+                res.send(campus);
+            }).catch(next)
+    } else {
+        Campus.removeStudent(req.params.campusId * 1, req.body.studentId.studentId * 1)
+            .then(campus => {
+                console.log('delete')
+                res.send(campus);
+            }).catch(next)
+    }
+});
 
 router.delete('/:campusId', (req, res, next) => {
     Campus.destroy({

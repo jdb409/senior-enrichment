@@ -20,6 +20,7 @@ const POST_STUDENT = 'POST_STUDENT'
 const POST_CAMPUS = 'POST_CAMPUS';
 const ADD_STUDENT_TO_CAMPUS = 'ADD_STUDENT_TO_CAMPUS';
 
+
 //action creators
 
 export function getStudents(students) {
@@ -132,15 +133,13 @@ export function newCampus(campus) {
     }
 }
 
-export function updateCampus(campusId, studentId) {
+export function updateCampus(campusId, studentId, del) {
     return function thunk(dispatch) {
-        return axios.put(`/api/campuses/${campusId}`, studentId)
+        return axios.put(`/api/campuses/${campusId}`, { studentId, del })
             .then(res => res.data)
             .then(campus => {
-                console.log(campus);
                 const action = addStudentToCampus(campus);
                 dispatch(action);
-                
             })
     }
 }
@@ -163,7 +162,7 @@ function reducer(state = initialState, action) {
             return Object.assign({}, state, { campuses: [...state.campuses, action.campus] });
         case ADD_STUDENT_TO_CAMPUS:
             console.log(action.campus);
-            return Object.assign({}, state, { campus: action.campus});
+            return Object.assign({}, state, { campus: action.campus });
         default:
             return state;
     }
