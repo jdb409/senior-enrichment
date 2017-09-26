@@ -43,7 +43,7 @@ router.put('/:campusId', (req, res, next) => {
 router.delete('/:campusId', (req, res, next) => {
     Campus.destroy({
         where: {
-            id: req.params.studentId
+            id: req.params.campusId
         }
     })
         .then(() => {

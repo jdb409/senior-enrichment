@@ -25,8 +25,6 @@ Campus.addStudent = (campusId, studentId) => {
 Campus.removeStudent = (campusId, studentId) => {
     return Student.findById(studentId * 1)
         .then(student => {
-            
-            console.log('student', studentId);
             student.campusId = null;
             return student.save()
         }).then(() => {

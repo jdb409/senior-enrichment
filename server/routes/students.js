@@ -11,8 +11,9 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:studentId', (req, res, next) => {
-    Student.findById(req.params.studentId)
+    Student.findById(req.params.studentId, { include: [{ all: true }] })
         .then(student => {
+            console.log(student);
             res.send(student)
         })
 })
@@ -25,11 +26,18 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:studentId', (req, res, next) => {
-    Student.findById(req.params.campusId)
+    if (req.body.campusId > -1) {
+        Student.changeCampus(req.params.studentId * 1, req.body.campusId * 1)
+            .then(student => {
+                res.send(student);
+            }).catch(next);
+    } else {
+        Student.removeCampus(req.params.studentId * 1)
         .then(student => {
             res.send(student);
-            //update
-        })
+        }).catch(next);
+    }
+
 })
 
 router.delete('/:studentId', (req, res, next) => {
@@ -38,7 +46,7 @@ router.delete('/:studentId', (req, res, next) => {
             id: req.params.studentId
         }
     })
-        .then(student => {
+        .then(() => {
             res.sendStatus(200);
         })
 })
