@@ -81,7 +81,7 @@ class SingleCampus extends Component {
     }
 }
 
-const mapStateToProps = ({ campus, students }, ownProps) => {
+const mapStateToProps = ({ campus, students }) => {
     return {
         campus: campus,
         students

@@ -12,13 +12,15 @@ const initialState = {
 }
 
 //action types
-const GET_STUDENTS = 'GET_STUDENT';
-const GET_STUDENT = 'GET_STUDENT';
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_CAMPUS = 'GET_CAMPUS';
-const POST_STUDENT = 'POST_STUDENT'
 const POST_CAMPUS = 'POST_CAMPUS';
-const ADD_STUDENT_TO_CAMPUS = 'ADD_STUDENT_TO_CAMPUS';
+const PUT_CAMPUS = 'PUT_CAMPUS';
+const DELETE_CAMPUS = 'DELETE_CAMPUS';
+
+const POST_STUDENT = 'POST_STUDENT'
+const GET_STUDENTS = 'GET_STUDENT';
+const GET_STUDENT = 'GET_STUDENT';
 
 
 //action creators
@@ -33,6 +35,13 @@ export function getStudents(students) {
 export function getStudent(student) {
     return {
         type: GET_STUDENT,
+        student
+    }
+}
+
+export function postStudent(student) {
+    return {
+        type: POST_STUDENT,
         student
     }
 }
@@ -52,12 +61,6 @@ export function getCampus(campus) {
     }
 }
 
-export function postStudent(student) {
-    return {
-        type: POST_STUDENT,
-        student
-    }
-}
 
 export function postCampus(campus) {
     return {
@@ -65,10 +68,17 @@ export function postCampus(campus) {
         campus
     }
 }
-export function addStudentToCampus(campus) {
+export function putCampus(campus) {
     return {
-        type: ADD_STUDENT_TO_CAMPUS,
+        type: PUT_CAMPUS,
         campus
+    }
+}
+
+export function deleteCampus(campus) {
+    return {
+        type: DELETE_CAMPUS,
+        campuses
     }
 }
 
@@ -122,6 +132,17 @@ export function fetchCampus(campusId) {
     }
 }
 
+export function newStudent(student) {
+    return function thunk(dispatch) {
+        return axios.post(`/api/students`, student)
+            .then(res => res.data)
+            .then(student => {
+                const action = postStudent(student);
+                dispatch(action);
+            })
+    }
+}
+
 export function newCampus(campus) {
     return function thunk(dispatch) {
         return axios.post('/api/campuses', campus)
@@ -138,11 +159,23 @@ export function updateCampus(campusId, studentId, del) {
         return axios.put(`/api/campuses/${campusId}`, { studentId, del })
             .then(res => res.data)
             .then(campus => {
-                const action = addStudentToCampus(campus);
+                const action = putCampus(campus);
                 dispatch(action);
             })
     }
 }
+
+export function delCampus(campusId) {
+    return function thunk(dispatch) {
+        return axios.delete(`/api/campuses/${campusId}`)
+            .then(res => res.data)
+            .then(campuses => {
+                const action = deleteCampus(campuses);
+                dispatch(action);
+            })
+    }
+}
+
 
 //reducer
 
@@ -152,17 +185,19 @@ function reducer(state = initialState, action) {
             return Object.assign({}, state, { students: action.students });
         case GET_STUDENT:
             return Object.assign({}, state, { student: action.student })
+        case POST_STUDENT:
+            return Object.assign({}, state, { students: [...state.students, action.student] });
+
         case GET_CAMPUSES:
             return Object.assign({}, state, { campuses: action.campuses });
         case GET_CAMPUS:
             return Object.assign({}, state, { campus: action.campus });
-        case POST_STUDENT:
-            return Object.assign({}, state, { students: [...state.students, action.student] });
         case POST_CAMPUS:
             return Object.assign({}, state, { campuses: [...state.campuses, action.campus] });
-        case ADD_STUDENT_TO_CAMPUS:
-            console.log(action.campus);
+        case PUT_CAMPUS:
             return Object.assign({}, state, { campus: action.campus });
+        case DELETE_CAMPUS:
+            return Object.assign({}, state, { campuses: action.campuses });
         default:
             return state;
     }

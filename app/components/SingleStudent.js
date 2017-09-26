@@ -11,7 +11,11 @@ const SingleStudent = (props) => {
         <div>
             <p><Link to='/'>Home</Link></p>
             <h1>{student.name}</h1>
-            <h2>{student.name} goes to <Link to={`/campuses/${student.campus.id}`}>{student.campus.name}</Link></h2>
+            {student.campus ?
+                <h2>{student.name} goes to <Link to={`/campuses/${student.campus.id}`}>{student.campus.name}</Link></h2>
+                :
+                <h2>{student.name} has not been asigned a campus</h2>
+            }
         </div>
     )
 }
@@ -25,3 +29,5 @@ const mapStateToProps = (state, ownProps) => {
 
 const SingleStudentContainer = connect(mapStateToProps, null)(SingleStudent);
 export default SingleStudentContainer;
+
+

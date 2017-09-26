@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import StudentForm from './StudentForm';
 
 const Students = (props) => {
     const { students } = props;
@@ -8,6 +9,7 @@ const Students = (props) => {
         <div className='container'>
             <p><Link to='/'>Home</Link></p>
             <h1>Students</h1>
+            <StudentForm />
             <ul>
                 {
                     students.map(student => {
