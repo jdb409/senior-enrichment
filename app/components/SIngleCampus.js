@@ -52,6 +52,7 @@ class SingleCampus extends Component {
                         <h1>Add new Student</h1>
                         <form onSubmit={handleSubmit}>
                             <select value={this.state.studentId} onChange={handleChange}>
+                                <option>Choose a student</option>
                                 {
                                     students && students.map(student => {
                                         return (
