@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import store, { fetchStudents, fetchCampuses } from '../store';
+import store from '../store';
+import { fetchStudents } from '../reducers/studentStore';
+import { fetchCampuses } from '../reducers/campusStore';
+
 import Home from './Home';
 import Students from './Students';
 import Campuses from './Campuses';
@@ -16,7 +19,7 @@ export default class Root extends Component {
   }
 
   render() {
-    
+
     return (
       <Router>
         <div className='container'>

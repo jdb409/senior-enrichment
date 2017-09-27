@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { updateStudent, fetchStudent } from '../store';
+import { updateStudent, fetchStudent } from '../reducers/studentStore';
 
 class SingleStudent extends Component {
     constructor() {
@@ -75,10 +75,11 @@ class SingleStudent extends Component {
     }
 }
 
-const mapStateToProps = ({ student, campuses }) => {
+const mapStateToProps = (state) => {
+
     return {
-        student,
-        campuses
+        student: state.student.student,
+        campuses: state.campus.campuses
     }
 }
 

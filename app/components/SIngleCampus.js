@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { updateCampus, fetchCampus } from '../store';
+import { updateCampus, fetchCampus } from '../reducers/campusStore';
 
 class SingleCampus extends Component {
     constructor() {
@@ -36,26 +36,34 @@ class SingleCampus extends Component {
     render() {
         const { campus, students } = this.props;
         const { handleChange, handleSubmit, deleteStudent } = this;
-
+        console.log('sdfadsf',campus);
         return (
             <div>
                 <p><Link to='/'>Home</Link></p>
                 <h1>{campus.name}</h1>
                 <div className='row'>
                     <div className='col-sm-6'>
-                        <h2>The following students attend {campus.name}</h2>
-                        <ul>
-                            {
-                                campus.students && campus.students.map(student => {
-                                    return (
-                                        <li key={student.id}><Link to={`/students/${student.id}`}>{student.name}  </Link>
-                                            <button onClick={deleteStudent} value={student.id} className='btn btn-danger btn-xs pull-right'>X</button>
-                                        </li>
+                    <img src = {campus.image}/>
+                        {
+                            campus.students && campus.students.length > 0 ?
+                                <div>
+                                    <h2>The following students attend {campus.name}</h2>
+                                    <ul>
+                                        {
+                                            campus.students && campus.students.map(student => {
+                                                return (
+                                                    <li key={student.id}><h4><Link to={`/students/${student.id}`}>{student.name}  </Link>
+                                                        <button onClick={deleteStudent} value={student.id} className='btn btn-danger btn-xs pull-right'>X</button></h4>
+                                                    </li>
 
-                                    );
-                                })
-                            }
-                        </ul>
+                                                );
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                                :
+                                <h2>No students attend {campus.name}</h2>
+                        }
                     </div>
 
                     <div className='col-sm-6'>
@@ -81,10 +89,10 @@ class SingleCampus extends Component {
     }
 }
 
-const mapStateToProps = ({ campus, students }) => {
+const mapStateToProps = (state) => {
     return {
-        campus: campus,
-        students
+        campus: state.campus.campus,
+        students: state.student.students
     }
 }
 

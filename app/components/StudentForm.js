@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { newStudent } from '../store';
+import { newStudent } from '../reducers/studentStore';
+
 
 class StudentForm extends Component {
     constructor() {

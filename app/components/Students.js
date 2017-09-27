@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import StudentForm from './StudentForm';
-import { delStudent } from '../store';
+import { delStudent } from '../reducers/studentStore';
+
 
 const Students = (props) => {
     const { students } = props;
@@ -29,7 +30,7 @@ const Students = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        students: state.students
+        students: state.student.students
     }
 }
 
