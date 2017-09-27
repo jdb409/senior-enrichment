@@ -38,7 +38,7 @@ class SingleCampus extends Component {
         const { handleChange, handleSubmit, deleteStudent } = this;
         console.log('sdfadsf', campus);
         return (
-            <div>
+            <div className = 'container'>
                 <h1>{campus.name}</h1>
                 <div className='row'>
                     <div className='col-sm-6'>

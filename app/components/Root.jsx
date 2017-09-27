@@ -22,7 +22,7 @@ export default class Root extends Component {
 
     return (
       <Router>
-        <div className='container'>
+        <div>
           <Route component={NavBar} />
           <Route exact path='/' component={Home} />
           <Route exact path='/students' component={Students} />

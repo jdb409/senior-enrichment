@@ -40,7 +40,7 @@ class SingleStudent extends Component {
         const { handleChange, handleSubmit, deleteCampus } = this;
         const lorem = loremIpsum({ units: 'paragraphs' });
         return (
-            <div className='row'>
+            <div className='container row'>
                 <div className='col-sm-6'>
                     <div>
                         <h1>{student.name}</h1>
@@ -50,7 +50,7 @@ class SingleStudent extends Component {
                             <h2>{student.name} has not been asigned a campus</h2>
                         }
                         <button onClick={deleteCampus} className='btn btn-xs btn-danger'>Remove Campus</button>
-                    
+
                         <div className='panel panel-default'>
                             <p className='panel panel-heading'>Biography</p>
                             <p className='panel panel-body'>{lorem}</p>
