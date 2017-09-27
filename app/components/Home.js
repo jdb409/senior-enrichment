@@ -1,16 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import store from '../store';
+import loremIpsum from 'lorem-ipsum';
 
 const Home = () => {
-    
+    const lorem = loremIpsum({ count: 5, units: 'paragraphs' });
     return (
         <div>
             <h1 className='container'>Welcome to Interplanetary Academy of Javascript</h1>
-            <ul>
-                <li><Link to={`/students`}>Students</Link></li>
-                <li><Link to={`/campuses`}>Campuses</Link></li>
-            </ul>
+            <br/>
+            <h5>{lorem}</h5>
         </div>
     );
 }

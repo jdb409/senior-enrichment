@@ -34,7 +34,9 @@ class CampusForm extends Component {
                     value={name}
                     onChange={handleChange}
                 />
+                <br/>
                 <button className='btn btn-primary'>Submit</button>
+                <br/>
             </form>
         );
     }

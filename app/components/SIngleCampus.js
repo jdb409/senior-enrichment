@@ -36,14 +36,13 @@ class SingleCampus extends Component {
     render() {
         const { campus, students } = this.props;
         const { handleChange, handleSubmit, deleteStudent } = this;
-        console.log('sdfadsf',campus);
+        console.log('sdfadsf', campus);
         return (
             <div>
-                <p><Link to='/'>Home</Link></p>
                 <h1>{campus.name}</h1>
                 <div className='row'>
                     <div className='col-sm-6'>
-                    <img src = {campus.image}/>
+                        <img src={campus.image} />
                         {
                             campus.students && campus.students.length > 0 ?
                                 <div>

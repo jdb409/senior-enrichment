@@ -8,8 +8,7 @@ import { delStudent } from '../reducers/studentStore';
 const Students = (props) => {
     const { students } = props;
     return (
-        <div className='container'>
-            <p><Link to='/'>Home</Link></p>
+        <div className='container box'>
             <h1>Students</h1>
             <StudentForm />
             <ul>
@@ -17,8 +16,8 @@ const Students = (props) => {
                     students.map(student => {
                         return (
                             <div key={student.id}>
-                                <li><Link to={`/students/${student.id}`} >{student.name}</Link></li>
-                                <p className='btn btn-sm btn-danger' onClick={() => props.deleteStudent(student.id, students)}>Delete Student</p>
+                                <li><h4><Link to={`/students/${student.id}`} >{student.name}</Link></h4></li>
+                                <p className='btn btn-xs btn-danger' onClick={() => props.deleteStudent(student.id, students)}>Delete Student</p>
                             </div>
                         )
                     })

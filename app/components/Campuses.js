@@ -8,8 +8,7 @@ const Campuses = (props) => {
     const { campuses } = props;
     console.log(campuses);
     return (
-        <div className='container'>
-            <p><Link to='/'>Home</Link></p>
+        <div className='container box'>
             <h1>Campuses</h1>
             <CampusForm />
             <ul>
@@ -17,7 +16,7 @@ const Campuses = (props) => {
                     campuses.map(campus => {
                         return (
                             <div key={campus.id}>
-                                <li><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></li>
+                                <li><h4><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></h4></li>
                                 <p className='btn btn-xs btn-danger' onClick={() => props.deleteCampus(campus.id, campuses)}>Delete Campus</p>
                             </div>
                         )

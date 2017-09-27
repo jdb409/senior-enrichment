@@ -34,6 +34,7 @@ class StudentForm extends Component {
                     value={name}
                     onChange={handleChange}
                 />
+                <br/>
                 <button className='btn btn-primary'>Submit</button>
             </form>
         );

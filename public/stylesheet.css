@@ -1,3 +1,22 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
 img{
     width: 50%;
+}
+
+.panel{
+    margin:2%;
+}
+
+li{
+    list-style: none;
+}
+
+.box{
+    width: 50%;
+    height: 75vh;
+    background-color: rgba(199, 199, 199, 0.46);
+    border: 5px solid rgba(255, 255, 255, 1);
 }

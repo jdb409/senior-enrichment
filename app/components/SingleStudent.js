@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { updateStudent, fetchStudent } from '../reducers/studentStore';
+import loremIpsum from 'lorem-ipsum';
 
 class SingleStudent extends Component {
     constructor() {
@@ -37,19 +38,23 @@ class SingleStudent extends Component {
         const { student, campuses } = this.props;
         console.log(this.props);
         const { handleChange, handleSubmit, deleteCampus } = this;
-
+        const lorem = loremIpsum({ units: 'paragraphs' });
         return (
             <div className='row'>
                 <div className='col-sm-6'>
                     <div>
-                        <p><Link to='/'>Home</Link></p>
                         <h1>{student.name}</h1>
                         {student.campus ?
-                            <h2>{student.name} goes to <Link to={`/campuses/${student.campus.id}`}>{student.campus.name}</Link></h2>
+                            <h2>Campus: <Link to={`/campuses/${student.campus.id}`}>{student.campus.name}</Link></h2>
                             :
                             <h2>{student.name} has not been asigned a campus</h2>
                         }
                         <button onClick={deleteCampus} className='btn btn-xs btn-danger'>Remove Campus</button>
+                    
+                        <div className='panel panel-default'>
+                            <p className='panel panel-heading'>Biography</p>
+                            <p className='panel panel-body'>{lorem}</p>
+                        </div>
                     </div>
                 </div>
 
