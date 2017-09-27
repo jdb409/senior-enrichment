@@ -4,9 +4,11 @@
   "description": "A review time project",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run webpack",
     "test": "mocha **/*.test.js *.test.js",
     "webpack": "./node_modules/webpack/bin/webpack.js",
-    "start": "npm run webpack -- -w & nodemon --ignore public/ --ignore components/ server/start.js"
+    "start:dev": "npm run webpack -- -w & nodemon --ignore public/ --ignore components/ server/start.js",
+    "start": "node server/start.js"
   },
   "keywords": [
     "react",
