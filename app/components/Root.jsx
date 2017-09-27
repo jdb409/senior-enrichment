@@ -34,5 +34,3 @@ export default class Root extends Component {
     )
   }
 }
-
-// <Route exact path='/campuses/:campusId' component={Campuses} />

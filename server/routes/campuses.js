@@ -10,7 +10,6 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:campusId', (req, res, next) => {
-    
     Campus.findById(req.params.campusId, { include: [{ all: true }] })
         .then(campus => {
             res.send(campus);
@@ -25,7 +24,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:campusId', (req, res, next) => {
-    console.log('saefdsdafdsa',req.body);
+    //checks if delete flag is false
     if (!req.body.del) {
         Campus.addStudent(req.params.campusId * 1, req.body.studentId.studentId * 1)
             .then(campus => {
@@ -34,7 +33,6 @@ router.put('/:campusId', (req, res, next) => {
     } else {
         Campus.removeStudent(req.params.campusId * 1, req.body.studentId.studentId * 1)
             .then(campus => {
-                console.log('delete')
                 res.send(campus);
             }).catch(next)
     }

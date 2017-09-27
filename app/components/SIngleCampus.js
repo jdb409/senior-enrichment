@@ -18,7 +18,6 @@ class SingleCampus extends Component {
     }
 
     handleChange(ev) {
-        console.log(ev.target.value);
         this.setState({ studentId: ev.target.value });
     }
 
@@ -29,21 +28,20 @@ class SingleCampus extends Component {
 
     deleteStudent(ev) {
         ev.preventDefault();
-        console.log('ev', ev.target.value);
         this.props.updateCampus(this.props.campus.id, { studentId: ev.target.value * 1 }, true)
     }
 
     render() {
         const { campus, students } = this.props;
         const { handleChange, handleSubmit, deleteStudent } = this;
-        console.log('sdfadsf', campus);
         return (
-            <div className = 'container'>
+            <div className='container campus'>
                 <h1>{campus.name}</h1>
                 <div className='row'>
                     <div className='col-sm-6'>
                         <img src={campus.image} />
                         {
+                            //check to see if campus has any students
                             campus.students && campus.students.length > 0 ?
                                 <div>
                                     <h2>The following students attend {campus.name}</h2>
@@ -51,8 +49,11 @@ class SingleCampus extends Component {
                                         {
                                             campus.students && campus.students.map(student => {
                                                 return (
-                                                    <li key={student.id}><h4><Link to={`/students/${student.id}`}>{student.name}  </Link>
-                                                        <button onClick={deleteStudent} value={student.id} className='btn btn-danger btn-xs pull-right'>X</button></h4>
+                                                    <li key={student.id}>
+                                                        <h2>
+                                                            <button onClick={deleteStudent} value={student.id} className='btn btn-danger btn-xs'>X</button>
+                                                            <Link to={`/students/${student.id}`}>{student.name}  </Link>
+                                                        </h2>
                                                     </li>
 
                                                 );
@@ -71,6 +72,7 @@ class SingleCampus extends Component {
                             <select value={this.state.studentId} onChange={handleChange}>
                                 <option>Choose a student</option>
                                 {
+                                    //list all students
                                     students && students.map(student => {
                                         return (
                                             <option value={student.id} key={student.id}>{student.name}</option>
@@ -88,10 +90,10 @@ class SingleCampus extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ campus, student }) => {
     return {
-        campus: state.campus.campus,
-        students: state.student.students
+        campus: campus.campus,
+        students: student.students
     }
 }
 

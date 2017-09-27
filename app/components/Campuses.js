@@ -6,7 +6,7 @@ import { delCampus } from '../reducers/campusStore';
 
 const Campuses = (props) => {
     const { campuses } = props;
-    console.log(campuses);
+    
     return (
         <div className='container box'>
             <h1>Campuses</h1>
@@ -27,10 +27,9 @@ const Campuses = (props) => {
     );
 }
 
-const mapStateToProps = (state) => {
-    console.log(state)
+const mapStateToProps = ({campus}) => {
     return {
-        campuses: state.campus.campuses
+        campuses: campus.campuses
     }
 }
 

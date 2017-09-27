@@ -19,13 +19,11 @@ class SingleStudent extends Component {
     }
 
     handleChange(ev) {
-        console.log(ev.target.value);
         this.setState({ campusId: ev.target.value });
     }
 
     handleSubmit(ev) {
         ev.preventDefault();
-        console.log(this.props.student.id);
         this.props.updateStudent(this.props.student.id, this.state.campusId)
     }
 
@@ -36,55 +34,60 @@ class SingleStudent extends Component {
 
     render() {
         const { student, campuses } = this.props;
-        console.log(this.props);
         const { handleChange, handleSubmit, deleteCampus } = this;
         const lorem = loremIpsum({ units: 'paragraphs' });
         return (
-            <div className='container row'>
-                <div className='col-sm-6'>
-                    <div>
-                        <h1>{student.name}</h1>
-                        {student.campus ?
-                            <h2>Campus: <Link to={`/campuses/${student.campus.id}`}>{student.campus.name}</Link></h2>
-                            :
-                            <h2>{student.name} has not been asigned a campus</h2>
-                        }
-                        <button onClick={deleteCampus} className='btn btn-xs btn-danger'>Remove Campus</button>
+            <div className = 'student'>
+                <div className='row'>
+                    <div className='col-sm-6'>
+                        <div>
+                            <h1>{student.name}</h1>
+                            {
+                                //Check to see if Student has a campus
 
-                        <div className='panel panel-default'>
-                            <p className='panel panel-heading'>Biography</p>
-                            <p className='panel panel-body'>{lorem}</p>
+                                student.campus ?
+                                    <h2>Campus: <Link to={`/campuses/${student.campus.id}`}>{student.campus.name}</Link></h2>
+                                    :
+                                    <h2>{student.name} has not been asigned a campus</h2>
+                            }
+                            <button onClick={deleteCampus} className='btn btn-xs btn-danger'>Remove Campus</button>
+
+                            <div className='panel panel-default'>
+                                <p className='panel panel-heading'>Biography</p>
+                                <p className='panel panel-body'>{lorem}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className='col-sm-6'>
-                    <h1>Change Campus</h1>
-                    <form onSubmit={handleSubmit}>
-                        <select value={this.state.campustId} onChange={handleChange}>
-                            <option>Pick a campus!</option>
-                            {
-                                campuses && campuses.map(campus => {
-                                    return (
-                                        <option value={campus.id} key={campus.id}>{campus.name}</option>
-                                    );
-                                })
-                            }
-                        </select>
-                        <br />
-                        <button className='btn btn-xs btn-primary'>Change Campus</button>
-                    </form>
+                    <div className='col-sm-6'>
+                        <h1>Change Campus</h1>
+                        <form onSubmit={handleSubmit}>
+                            <select value={this.state.campustId} onChange={handleChange}>
+                                <option>Pick a campus!</option>
+                                {
+                                    //List all campuses
+                                    campuses && campuses.map(campus => {
+                                        return (
+                                            <option value={campus.id} key={campus.id}>{campus.name}</option>
+                                        );
+                                    })
+                                }
+                            </select>
+                            <br />
+                            <button className='btn btn-xs btn-primary'>Change Campus</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ student, campus }) => {
 
     return {
-        student: state.student.student,
-        campuses: state.campus.campuses
+        student: student.student,
+        campuses: campus.campuses
     }
 }
 

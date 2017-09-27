@@ -5,7 +5,11 @@ const Student = require('./Student');
 const Campus = db.define('campus', {
     name: {
         type: Sequelize.STRING,
-        unique: true
+        unique: true,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     },
     image: {
         type: Sequelize.TEXT,
@@ -14,8 +18,7 @@ const Campus = db.define('campus', {
     
 })
 
-
-
+//Class Methods
 Campus.addStudent = (campusId, studentId) => {
         console.log(__dirname)
         return Promise.all([Campus.findById(campusId, { include: [{ all: true }] }), Student.findById(studentId * 1)])

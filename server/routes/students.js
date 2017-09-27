@@ -13,7 +13,6 @@ router.get('/', (req, res, next) => {
 router.get('/:studentId', (req, res, next) => {
     Student.findById(req.params.studentId, { include: [{ all: true }] })
         .then(student => {
-            console.log(student);
             res.send(student)
         })
 })
@@ -26,6 +25,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:studentId', (req, res, next) => {
+    //checks if delete flag is false
     if (req.body.campusId > -1) {
         Student.changeCampus(req.params.studentId * 1, req.body.campusId * 1)
             .then(student => {

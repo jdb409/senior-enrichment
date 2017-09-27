@@ -27,9 +27,9 @@ const Students = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({student}) => {
     return {
-        students: state.student.students
+        students: student.students
     }
 }
 
