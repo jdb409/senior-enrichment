@@ -36,7 +36,7 @@ if (module === require.main) {
           ~ To help compare these objects, reference each of their `id` attributes
   */
 
-  const PORT = 1337
+  const PORT = process.env.PORT || 1337;
 
   const db = require('../db')
   const seed = require('../db/models')
