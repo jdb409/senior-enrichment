@@ -114,7 +114,6 @@ export function delCampus(campusId, campuses) {
 //reducer
 
 export default function campusReducer(state = initialState, action) {
-    console.log(state);
     switch (action.type) {
         case GET_CAMPUSES:
             return Object.assign({}, state, { campuses: action.campuses });

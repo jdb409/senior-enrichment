@@ -15,14 +15,19 @@ const Student = db.define('student', {
         validate: {
             isEmail: true
         }
+    },
+    bio: {
+        type: Sequelize.TEXT
     }
 })
 
-Student.changeCampus = (studentId, campusId) => {
+Student.updateInfo = (studentId, update) => {
     console.log('hello');
     return Student.findById(studentId)
         .then(student => {
-            student.campusId = campusId;
+            student.email = update.email || student.email;
+            student.campusId = update.campusId || student.campusId;
+            student.bio = update.bio || student.bio;
             return student.save()
                 .then(() => {
                     return Student.findById(studentId, { include: [{ all: true }] });
@@ -32,13 +37,13 @@ Student.changeCampus = (studentId, campusId) => {
 
 Student.removeCampus = (studentId) => {
     return Student.findById(studentId)
-    .then(student => {
-        student.campusId = null;
-        return student.save()
-            .then(() => {
-                return Student.findById(studentId, { include: [{ all: true }] });
-            })
-    })
+        .then(student => {
+            student.campusId = null;
+            return student.save()
+                .then(() => {
+                    return Student.findById(studentId, { include: [{ all: true }] });
+                })
+        })
 }
 
 module.exports = Student; 

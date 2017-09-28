@@ -12,6 +12,7 @@ const GET_STUDENT = 'GET_STUDENT';
 const POST_STUDENT = 'POST_STUDENT'
 const PUT_STUDENT = 'PUT_STUDENT';
 const DELETE_STUDENT = 'DELETE_STUDENT';
+const UPDATE_BIO = 'UPDATE_BIO';
 
 
 //action creators
@@ -48,6 +49,13 @@ export function deleteStudent(students) {
     return {
         type: DELETE_STUDENT,
         students
+    }
+}
+
+export function updateBio(student) {
+    return {
+        type: UPDATE_BIO,
+        student
     }
 }
 
@@ -89,12 +97,11 @@ export function newStudent(student) {
     }
 }
 
-export function updateStudent(studentId, campusId) {
+export function updateStudent(studentId, state) {
     return function thunk(dispatch) {
-        return axios.put(`/api/students/${studentId}`, { campusId })
+        return axios.put(`/api/students/${studentId}`, state)
             .then(res => res.data)
             .then(student => {
-                console.log(student.campusId);
                 const action = putStudent(student);
                 dispatch(action);
             });
@@ -117,7 +124,6 @@ export function delStudent(studentId, students) {
 //reducer
 
 export default function studentReducer(state = initialState, action) {
-    console.log(state);
     switch (action.type) {
         case GET_STUDENTS:
             return Object.assign({}, state, { students: action.students });
@@ -129,6 +135,8 @@ export default function studentReducer(state = initialState, action) {
             return Object.assign({}, state, { student: action.student });
         case DELETE_STUDENT:
             return Object.assign({}, state, { students: action.students });
+        case UPDATE_BIO:
+            return Object.assign({}, state, { student: action.student });
         default:
             return state;
     }

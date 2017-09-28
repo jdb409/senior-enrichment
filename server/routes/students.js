@@ -26,8 +26,9 @@ router.post('/', (req, res, next) => {
 
 router.put('/:studentId', (req, res, next) => {
     //checks if delete flag is false
+    console.log(req.body);
     if (req.body.campusId > -1) {
-        Student.changeCampus(req.params.studentId * 1, req.body.campusId * 1)
+        Student.updateInfo(req.params.studentId * 1, req.body)
             .then(student => {
                 res.send(student);
             }).catch(next);

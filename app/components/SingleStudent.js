@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { updateStudent, fetchStudent } from '../reducers/studentStore';
 import loremIpsum from 'lorem-ipsum';
+import EditStudent from './EditStudent';
 
 class SingleStudent extends Component {
     constructor() {
         super();
-        this.state = { campusId: '' };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.deleteCampus = this.deleteCampus.bind(this);
     }
 
@@ -18,30 +16,22 @@ class SingleStudent extends Component {
         this.props.fetchStudent(studentId)
     }
 
-    handleChange(ev) {
-        this.setState({ campusId: ev.target.value });
-    }
-
-    handleSubmit(ev) {
-        ev.preventDefault();
-        this.props.updateStudent(this.props.student.id, this.state.campusId)
-    }
-
     deleteCampus(ev) {
         ev.preventDefault();
         this.props.updateStudent(this.props.student.id)
     }
 
     render() {
-        const { student, campuses } = this.props;
-        const { handleChange, handleSubmit, deleteCampus } = this;
+        const { student } = this.props;
+        const { deleteCampus } = this;
         const lorem = loremIpsum({ units: 'paragraphs' });
         return (
-            <div className = 'student'>
+            <div className='student'>
                 <div className='row'>
                     <div className='col-sm-6'>
                         <div>
                             <h1>{student.name}</h1>
+                            <h3>Email: {student.email}</h3>
                             {
                                 //Check to see if Student has a campus
 
@@ -54,28 +44,13 @@ class SingleStudent extends Component {
 
                             <div className='panel panel-default'>
                                 <p className='panel panel-heading'>Biography</p>
-                                <p className='panel panel-body'>{lorem}</p>
+                                <p className='panel panel-body'>{student.bio || lorem}</p>
                             </div>
                         </div>
                     </div>
 
                     <div className='col-sm-6'>
-                        <h1>Change Campus</h1>
-                        <form onSubmit={handleSubmit}>
-                            <select value={this.state.campustId} onChange={handleChange}>
-                                <option>Pick a campus!</option>
-                                {
-                                    //List all campuses
-                                    campuses && campuses.map(campus => {
-                                        return (
-                                            <option value={campus.id} key={campus.id}>{campus.name}</option>
-                                        );
-                                    })
-                                }
-                            </select>
-                            <br />
-                            <button className='btn btn-xs btn-primary'>Change Campus</button>
-                        </form>
+                        <EditStudent bio={lorem} name={student.name} />
                     </div>
                 </div>
             </div>
@@ -83,21 +58,19 @@ class SingleStudent extends Component {
     }
 }
 
-const mapStateToProps = ({ student, campus }) => {
+const mapStateToProps = ({ student }) => {
 
     return {
         student: student.student,
-        campuses: campus.campuses
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateStudent: (studentId, campusId) => {
-            dispatch(updateStudent(studentId, campusId));
-        },
         fetchStudent: (studentId) => {
             dispatch(fetchStudent(studentId))
+        }, updateStudent: (studentId, campusId) => {
+            dispatch(updateStudent(studentId, campusId));
         }
     }
 }
