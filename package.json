@@ -7,7 +7,7 @@
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "start:dev": "npm run webpack -- -w & nodemon --ignore public/ --ignore components/ server/start.js",
     "start": "node server/start.js",
-    "postinstall": "/node_modules/webpack/bin/webpack.js"
+    "postinstall": "webpack"
   },
   "keywords": [
     "react",
