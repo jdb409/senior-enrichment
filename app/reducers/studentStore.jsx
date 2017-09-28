@@ -1,8 +1,10 @@
 import axios from 'axios';
+import store from '../store';
 
 const initialState = {
     students: [],
-    student: {}
+    student: {},
+    err: ''
 }
 
 //action types
@@ -13,6 +15,7 @@ const POST_STUDENT = 'POST_STUDENT'
 const PUT_STUDENT = 'PUT_STUDENT';
 const DELETE_STUDENT = 'DELETE_STUDENT';
 const UPDATE_BIO = 'UPDATE_BIO';
+const ERR = 'ERR'
 
 
 //action creators
@@ -59,6 +62,13 @@ export function updateBio(student) {
     }
 }
 
+export function err(err) {
+    return {
+        type: ERR,
+        err
+    }
+}
+
 
 //thunks
 
@@ -70,7 +80,7 @@ export function fetchStudents() {
             .then(students => {
                 const action = getStudents(students);
                 dispatch(action);
-            })
+            }).catch(console.log)
     }
 }
 
@@ -82,7 +92,7 @@ export function fetchStudent(studentId) {
             .then(student => {
                 const action = getStudent(student);
                 dispatch(action);
-            })
+            }).catch(console.log)
     }
 }
 
@@ -92,6 +102,9 @@ export function newStudent(student) {
             .then(res => res.data)
             .then(student => {
                 const action = postStudent(student);
+                dispatch(action);
+            }).catch(error => {
+                const action = err('Enter a valid name');
                 dispatch(action);
             })
     }
@@ -104,7 +117,7 @@ export function updateStudent(studentId, state) {
             .then(student => {
                 const action = putStudent(student);
                 dispatch(action);
-            });
+            }).catch(console.log)
     }
 }
 
@@ -116,7 +129,7 @@ export function delStudent(studentId, students) {
                 const filtered = students.filter(student => student.id !== studentId);
                 const action = deleteStudent(filtered);
                 dispatch(action);
-            })
+            }).catch(console.log)
     }
 }
 
@@ -137,6 +150,8 @@ export default function studentReducer(state = initialState, action) {
             return Object.assign({}, state, { students: action.students });
         case UPDATE_BIO:
             return Object.assign({}, state, { student: action.student });
+        case ERR:
+            return Object.assign({}, state, { err: action.err });
         default:
             return state;
     }

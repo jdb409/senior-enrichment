@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { newStudent } from '../reducers/studentStore';
+import { newStudent, err } from '../reducers/studentStore';
 
 
 class StudentForm extends Component {
@@ -20,34 +20,51 @@ class StudentForm extends Component {
     handleSubmit(ev) {
         ev.preventDefault();
         this.props.newStudent(this.state);
+        this.props.error('');
+        this.setState({name: ''})
+        
     }
 
     render() {
         const { name } = this.state;
         const { handleChange, handleSubmit } = this;
+        
         return (
-            <form onSubmit={handleSubmit}>
-                <input
-                    type='text'
-                    name='studentName'
-                    className='form-control'
-                    value={name}
-                    onChange={handleChange}
-                />
-                <br/>
-                <button className='btn btn-primary'>Submit</button>
-            </form>
+            <div>
+
+                {this.props.err && <h4 className='well'>{this.props.err}</h4>}
+                <form onSubmit={handleSubmit} >
+                    <input
+                        type='text'
+                        name='studentName'
+                        className='form-control'
+                        value={name}
+                        onChange={handleChange}
+                    />
+                    <br />
+                    <button className='btn btn-primary'>Submit</button>
+                </form>
+            </div>
+
         );
     }
 }
 
+const mapStateToProps = ({ student }) => {
+    return {
+        err: student.err
+    }
+}
 const mapDispatchToProps = (dispatch) => {
     return {
         newStudent: (student) => {
             dispatch(newStudent(student));
+        },
+        error: (error) => {
+            dispatch(err(error))
         }
     };
 }
 
-const StudentFormContainer = connect(null, mapDispatchToProps)(StudentForm);
+const StudentFormContainer = connect(mapStateToProps, mapDispatchToProps)(StudentForm);
 export default StudentFormContainer;

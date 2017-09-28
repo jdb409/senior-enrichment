@@ -6,21 +6,21 @@ router.get('/', (req, res, next) => {
     Campus.findAll({ include: [{ all: true }] })
         .then(campuses => {
             res.send(campuses);
-        })
+        }).catch(next);
 });
 
 router.get('/:campusId', (req, res, next) => {
     Campus.findById(req.params.campusId, { include: [{ all: true }] })
         .then(campus => {
             res.send(campus);
-        })
+        }).catch(next);
 })
 
 router.post('/', (req, res, next) => {
     Campus.create(req.body)
         .then(campus => {
             res.send(campus);
-        })
+        }).catch(next);
 });
 
 router.put('/:campusId', (req, res, next) => {
@@ -46,7 +46,7 @@ router.delete('/:campusId', (req, res, next) => {
     })
         .then(() => {
             res.sendStatus(200);
-        })
+        }).catch(next);
 })
 
 module.exports = router;

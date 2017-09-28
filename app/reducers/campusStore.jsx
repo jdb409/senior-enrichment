@@ -59,7 +59,7 @@ export function fetchCampuses() {
             .then(campuses => {
                 const action = getCampuses(campuses);
                 dispatch(action);
-            })
+            }).catch(console.log)
     }
 }
 
@@ -72,7 +72,7 @@ export function fetchCampus(campusId) {
             .then(campus => {
                 const action = getCampus(campus);
                 dispatch(action);
-            })
+            }).catch(console.log)
     }
 }
 
@@ -83,7 +83,7 @@ export function newCampus(campus) {
             .then(campus => {
                 const action = postCampus(campus);
                 dispatch(action);
-            })
+            }).catch(console.log)
     }
 }
 
@@ -94,7 +94,7 @@ export function updateCampus(campusId, studentId, del) {
             .then(campus => {
                 const action = putCampus(campus);
                 dispatch(action);
-            })
+            }).catch(console.log)
     }
 }
 
@@ -105,8 +105,8 @@ export function delCampus(campusId, campuses) {
             .then(() => {
                 const filtered = campuses.filter(campus => campus.id !== campusId);
                 const action = deleteCampus(filtered);
-                dispatch(action);
-            })
+                dispatch(action)
+            }).catch(console.log)
     }
 }
 

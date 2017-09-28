@@ -7,14 +7,14 @@ router.get('/', (req, res, next) => {
     })
         .then(students => {
             res.send(students);
-        })
+        }).catch(next);
 });
 
 router.get('/:studentId', (req, res, next) => {
     Student.findById(req.params.studentId, { include: [{ all: true }] })
         .then(student => {
             res.send(student)
-        })
+        }).catch(next);
 })
 
 router.post('/', (req, res, next) => {
@@ -34,9 +34,9 @@ router.put('/:studentId', (req, res, next) => {
             }).catch(next);
     } else {
         Student.removeCampus(req.params.studentId * 1)
-        .then(student => {
-            res.send(student);
-        }).catch(next);
+            .then(student => {
+                res.send(student);
+            }).catch(next);
     }
 
 })
@@ -49,7 +49,7 @@ router.delete('/:studentId', (req, res, next) => {
     })
         .then(() => {
             res.sendStatus(200);
-        })
+        }).catch(next);
 })
 
 module.exports = router;
